@@ -1,9 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-// import { useState } from 'react'
-
-// import { change_city, set_city } from '../actions'
-// import '../styles/InputContainer.css'
 import { useEffect } from 'react'
 import FetchCurrencyData from '../apicall/FecthCurrencyData'
 import DisplayCurrency from './DisplayCurrency'
@@ -24,17 +19,9 @@ const styles = {
 }
 function InputContainer() {
 
-    // const [city, setcity] = useState("")
+
     const dispatch = useDispatch()
     const [searchTerm, setSearchTerm] = useState("")
-    // const currencyData = useSelector(state => state.currencyData)
-    // const changecity=useSelector(state=>state.changecity)
-    const currencyData = useSelector(state => state.currencyData)
-    //// const isLoading =useSelector(state=>state.isLoading)
-    console.log(currencyData.currencyData.data);
-    // console.log(isLoading);
-
-    console.log(searchTerm)
     useEffect(() => {
 
         dispatch(FetchCurrencyData())

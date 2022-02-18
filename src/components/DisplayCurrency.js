@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Pagination from './Pagination';
-import { setCurrencyData } from '../actions'
-import { useDispatch } from 'react-redux'
+
+const styles = {
+    tableStyle: {
+        textAlign: "center",
+        borderCollapse: "separate",
+        borderSpacing: "0 .6em"
+    }
+}
 function DisplayCurrency({ searchTerm }) {
-    const dispatch = useDispatch()
+    
     const currencyData = useSelector(state => state.currencyData)
     const size = Object.keys(currencyData.currencyData).length === 0 ? 0 : currencyData.currencyData.data.length;
-    console.log(size);
     const [currentPage, setCurrentPage] = useState(1)
-    // get current posts
-    console.log(searchTerm);
     const indexOfLastCurrency = currentPage * 20;
     const indexOfFirstCurrency = indexOfLastCurrency - 20
     let currentCurreny = ""
@@ -21,19 +24,17 @@ function DisplayCurrency({ searchTerm }) {
                 || currency.id.toLowerCase() === searchTerm.toLowerCase()
                 || currency.symbol.toLowerCase() === searchTerm.toLowerCase()
         })
-        console.log(currentCurreny)
     }
     else {
         currentCurreny = Object.keys(currencyData.currencyData).length === 0 ? {} : currencyData.currencyData.data.slice(indexOfFirstCurrency, indexOfLastCurrency)
-        console.log(currentCurreny);
         paginate = pageNumber => setCurrentPage(pageNumber);
     }
     return (
 
 
         <div>
-             {searchTerm === "" && <Pagination totalCurrency={size} paginate={paginate} />}
-            <table>
+            {searchTerm === "" && <Pagination totalCurrency={size} paginate={paginate} />}
+            <table style={styles.tableStyle}>
                 <tr>
                     <th>ID</th>
                     <th>Rank</th>
@@ -47,8 +48,8 @@ function DisplayCurrency({ searchTerm }) {
                     <th>Price (USD)</th>
                     <th>% change in the last 24 Hr</th>
                     <th>Volume Weighted Average Price in the last 24 hours</th>
-                   
-                    
+
+
                 </tr>
                 {
                     size === 0 || currencyData.isLoading === true ? (<div>Loading</div>) : (
@@ -62,15 +63,15 @@ function DisplayCurrency({ searchTerm }) {
                                 <td>{currency.maxSupply === null ? 'Not available' : parseFloat(currency.maxSupply).toFixed(2)}</td>
                                 <td>{parseFloat(currency.marketCapUsd).toFixed(2)}</td>
                                 <td>{parseFloat(currency.volumeUsd24Hr).toFixed(2)}</td>
-                                <td>{parseFloat(currency.priceUsd).toFixed(4    )}</td>
+                                <td>{parseFloat(currency.priceUsd).toFixed(4)}</td>
                                 <td>{parseFloat(currency.changePercent24Hr).toFixed(4)}</td>
                                 <td>{parseFloat(currency.vwap24Hr).toFixed(2)}</td>
-                               
+
                             </tr>))
                 }
             </table>
 
-           
+
         </div>)
 
 
