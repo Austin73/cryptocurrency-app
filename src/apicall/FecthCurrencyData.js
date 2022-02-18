@@ -14,7 +14,6 @@ function FetchCurrencyData() {
         })
         .then(data=>{
           
-            console.log(data)
             
             dispatch(setCurrencyData(data))
         })

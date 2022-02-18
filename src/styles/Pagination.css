@@ -1,0 +1,8 @@
+.pagination
+{
+    display: flex;
+    list-style: none;
+    justify-content: space-around; 
+    background-color: green; 
+    max-width: 20%;
+}
